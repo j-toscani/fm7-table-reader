@@ -1,7 +1,6 @@
 import "./style.css";
 import cutImage, { CutOptions } from "./utils/cutImage";
 import getTableTop from "./utils/getTableTop";
-import imageDataToLines from "./utils/imageDataToLines";
 import toGrayLevels from "./utils/toGrayLevels";
 
 const canvas = document.querySelector("canvas")!;
@@ -15,19 +14,22 @@ image.addEventListener("load", () => {
 
   let imageData = resetImage();
   const head = getTableTop(imageData);
-
-  const bottom = getBottom(imageData, {
+  imageData = resetImage();
+  const hits = getTableRows(imageData, {
     x: head.startX,
     y: head.startY,
     w: head.end,
   });
 
-  imageData = resetImage();
-
-  ctx.fillStyle = "blue";
-  ctx.fillRect(head.startX, head.startY, head.end, bottom);
-  ctx.fillStyle = "blue";
-  // ctx.fillRect(head.startX, head.startY, head.count, 5);
+  ctx.strokeStyle = "red";
+  hits.forEach((hit, index) => {
+    ctx.strokeRect(
+      head.startX,
+      head.startY + (hits[index - 1] ?? 0),
+      head.end,
+      hit - (hits[index - 1] ?? 0)
+    );
+  });
 });
 
 function resetImage() {
@@ -35,35 +37,25 @@ function resetImage() {
   return ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
-function getBottom(imageData: ImageData, cut: CutOptions) {
-  const newCut = cutImage(imageData, cut);
-  const transformed = toGrayLevels(newCut, 8);
-  const { width, height, data } = transformed;
-
-  let bottom = 0;
-  for (let index = height; index > 0; index--) {
-    const color = data[index * width * 4 + (width * 4) / 2];
-
-    if (color === 32) {
-      bottom = height - index;
-    }
-  }
-
-  return bottom;
-}
 function getTableRows(imageData: ImageData, cut: CutOptions) {
   const newCut = cutImage(imageData, cut);
   const transformed = toGrayLevels(newCut, 8);
   const { width, height, data } = transformed;
 
-  const hits = new Set();
+  const hits = [] as number[];
+  let consecutives = 0;
   for (let index = 0; index < height; index++) {
     const color = data[index * width * 4 + (width * 4) / 2];
 
-    if (color === 32 && !hits.has(index - 1) && !hits.has(index + 1)) {
-      hits.add(index);
+    if (color === 32) {
+      !(index % 10) ? hits.push(index) : null;
+      consecutives = hits.includes(index - 1) ? consecutives + 1 : 0;
+    } else if (color !== 192 && color !== 0) {
+      console.log(index, color);
+      break;
     }
   }
+  return Array.from(hits) as number[];
 }
 
-image.src = "/images/second_result.png";
+image.src = "/images/result_4.jpg";
