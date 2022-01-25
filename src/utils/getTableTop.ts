@@ -7,7 +7,8 @@ export default function getTableTop(imageData: ImageData) {
   const transformed = toGrayLevels(topThird, 2);
   const lines = imageDataToLines(transformed);
 
-  const found = { startY: 0, startX: 0, end: 0 };
+  let x = 0;
+  let y = 0;
 
   for (let index = lines.length - 1; index > 0; index--) {
     const line = lines[index];
@@ -17,32 +18,15 @@ export default function getTableTop(imageData: ImageData) {
       continue;
     }
 
-    const { start, count } = findFirstLongest(line);
+    x = line.findIndex((entry) => entry === 128);
+    y = index;
 
-    found.startX = Math.floor(start / 4);
-    (found.startY = index), (found.end = count / 4);
-
-    break;
-  }
-
-  return found;
-}
-
-function findFirstLongest(line: Uint8ClampedArray, color: number = 128) {
-  const start = line.findIndex((entry) => entry === color);
-  let count = 0;
-
-  for (let innerIndex = start; innerIndex < line.length; innerIndex += 4) {
-    if (line[innerIndex] === color) {
-      continue;
-    }
-
-    count = innerIndex - start;
     break;
   }
 
   return {
-    start,
-    count,
+    startX: Math.floor(x / 4),
+    end: imageData.width - Math.floor(x / 4) * 2,
+    startY: y,
   };
 }
