@@ -1,4 +1,4 @@
-export default function imageDataToLines(imageData: ImageData) {
+export default function getPixelRows(imageData: ImageData) {
   const lines = [];
   const to = imageData.width * 4;
 
