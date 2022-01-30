@@ -8,7 +8,7 @@ export default function getTableDimensions(imageData: ImageData) {
 
   const top = getTableStartY(transformed);
   const left = findTableLeftEnd(transformed, top);
-  const ends = findTableRows(imageData, top, left);
+  const rows = findTableRows(imageData, top, left);
 
-  return { top, left, ends };
+  return { top, left, rows };
 }

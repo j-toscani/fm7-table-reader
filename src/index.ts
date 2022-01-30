@@ -7,7 +7,7 @@ setUpCanvas((ctx, canvas, image) => {
   canvas.height = image.height;
   ctx.drawImage(image, 0, 0, image.width, image.height);
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const { top, left, ends } = getTableDimensions(imageData);
+  const { top, left, rows } = getTableDimensions(imageData);
 
   ctx.putImageData(imageData, 0, 0);
   ctx.strokeStyle = "blue";
@@ -15,12 +15,12 @@ setUpCanvas((ctx, canvas, image) => {
   ctx.strokeRect(
     left,
     top,
-    imageData.width - left,
-    ends[ends.length - 1] - top + 2
+    imageData.width - left * 2,
+    rows[rows.length - 1] - top + 2
   );
 
-  ends.forEach((end) => {
+  rows.forEach((row) => {
     ctx.fillStyle = "red";
-    ctx.fillRect(0, end, image.width, 1);
+    ctx.fillRect(left, row, imageData.width - left * 2, 1);
   });
 });
