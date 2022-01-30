@@ -24,6 +24,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  background-color: rgb(176, 176, 176);
 }
 
 canvas {
