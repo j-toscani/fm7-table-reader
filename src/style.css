@@ -28,6 +28,10 @@ main {
 }
 
 canvas {
+  margin: 1rem auto;
+}
+
+canvas.main {
   margin: 5vh 0;
 }
 

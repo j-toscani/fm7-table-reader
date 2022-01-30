@@ -10,29 +10,67 @@ setUpCanvas((ctx, canvas, image) => {
   const dimensions = getTableDimensions(imageData);
 
   ctx.putImageData(imageData, 0, 0);
-  printTable(canvas, dimensions);
+  printTableRows(canvas, dimensions);
 });
 
-function printTable(
-  canvas: HTMLCanvasElement,
-  dimensions: { top: number; left: number; rows: number[]; end: number }
+function printTableRows(
+  src: HTMLCanvasElement,
+  dimensions: {
+    top: number;
+    left: number;
+    rows: number[];
+    end: number;
+  }
 ) {
-  const { top, left, rows, end } = dimensions;
-  const cutCanvas = document.querySelector<HTMLCanvasElement>("#cut")!;
-  const cutCtx = cutCanvas.getContext("2d")!;
+  const { left, end, rows, top } = dimensions;
 
-  cutCanvas.width = end;
-  cutCanvas.height = rows[rows.length - 1] - top;
+  const main = document.querySelector("main");
 
-  cutCtx.drawImage(
+  for (let index = 0; index < rows.length; index++) {
+    const start = index ? rows[index - 1] : top;
+    const bottom = rows[index];
+
+    if (bottom - start < 10) {
+      // Too small for table row
+      continue;
+    }
+
+    const { canvas, ctx } = createCanvasAndCtx({
+      width: end,
+      height: bottom - start,
+    });
+
+    drawSubImage(src, ctx!, {
+      x: left,
+      y: start,
+      width: end,
+      height: bottom - start,
+    });
+
+    main?.append(canvas!);
+  }
+}
+
+function createCanvasAndCtx(options: { width: number; height: number }) {
+  const { width, height } = options;
+  const canvas = document.createElement("canvas");
+
+  canvas.width = width;
+  canvas.height = height;
+
+  const ctx = canvas.getContext("2d");
+
+  return {
     canvas,
-    left,
-    top,
-    cutCanvas.width,
-    cutCanvas.height,
-    0,
-    0,
-    cutCanvas.width,
-    cutCanvas.height
-  );
+    ctx,
+  };
+}
+
+function drawSubImage(
+  from: HTMLCanvasElement,
+  to: CanvasRenderingContext2D,
+  dimensions: { x: number; y: number; width: number; height: number }
+) {
+  const { x, y, width, height } = dimensions;
+  to.drawImage(from, x, y, width, height, 0, 0, width, height);
 }
