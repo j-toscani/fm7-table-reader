@@ -1,9 +1,11 @@
+import getPixelStart from "../helper/getPixelStart";
+
 export default function findTableRows(
   imageData: ImageData,
   top: number,
   left: number
 ) {
-  const { data, width, height } = imageData;
+  const { data, height } = imageData;
   let rowEnds: number[] = [];
   let count = 0;
 
@@ -13,7 +15,7 @@ export default function findTableRows(
       break;
     }
 
-    const pixelIndex = left * 4 + index * width * 4;
+    const pixelIndex = getPixelStart(imageData, { x: left, y: index });
     const pixelColor = data[pixelIndex];
 
     if (pixelColor < 125) {

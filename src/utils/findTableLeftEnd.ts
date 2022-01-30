@@ -1,14 +1,15 @@
+import getPixelStart from "../helper/getPixelStart";
+
 export default function findTableLeftEnd(
   imageData: ImageData,
   tableTop: number
 ) {
-  const { width, data } = imageData;
+  const { data } = imageData;
+  const start = getPixelStart(imageData, { x: 0, y: tableTop + 1 });
+  const end = getPixelStart(imageData, { x: 0, y: tableTop + 2 });
 
   // TODO: find first black row instead of assuming it
-  const line = data.slice(
-    (tableTop + 1) * width * 4,
-    (tableTop + 2) * width * 4
-  );
+  const line = data.slice(start, end);
   const center = Math.floor(line.length / 2);
 
   let left = 0;
