@@ -1,5 +1,4 @@
 import getPixelRows from "./getPixelRows";
-import toGrayLevels from "./toGrayLevels";
 
 export default function getTableStartY(imageData: ImageData) {
   const endOfFirstThird = Math.round(imageData.height / 3);
