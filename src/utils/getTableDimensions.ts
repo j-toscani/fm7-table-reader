@@ -10,7 +10,6 @@ export default function getTableDimensions(imageData: ImageData) {
   const top = findTableStartY(transformed);
   const left = findTableLeftEnd(transformed, top);
   const rows = findTableRows(imageData, top, left);
-  // const end = findTableRowsEnd(imageData, rows);
 
   const end = imageData.width - left * 2;
 

@@ -11,5 +11,5 @@ export default function setUpCanvas(
 
   image.addEventListener("load", () => onLoad(ctx, canvas, image));
 
-  image.src = "/images/table_11.png";
+  image.src = "/images/TabelleStart.png";
 }
