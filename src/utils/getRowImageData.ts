@@ -30,6 +30,7 @@ export function printRowImages(rows: ImageData[]) {
   const main = document.querySelector("main");
   rows.forEach((row) => {
     const cv = document.createElement("canvas")!;
+    cv.setAttribute("data-row", "row");
     const ctx2 = cv.getContext("2d")!;
 
     cv.width = row.width;
