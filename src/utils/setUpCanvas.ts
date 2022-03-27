@@ -17,7 +17,7 @@ export default function setUpCanvas() {
       ctx.drawImage(image, 0, 0, image.width, image.height);
       resolve({ ctx, canvas, image });
     });
-    image.src = "/images/TabelleStart_handled.png";
+    image.src = "/images/new.png";
   });
 
   return promise;

@@ -4,6 +4,7 @@ import getCellImages from "./utils/getCellImages";
 import getRowImageData from "./utils/getRowImageData";
 import getTableDimensions from "./utils/getTableDimensions";
 import loadWorker from "./utils/loadWorker";
+import readCells from "./utils/readCells";
 import setUpCanvas from "./utils/setUpCanvas";
 
 setUpCanvas().then(async ({ ctx, canvas }) => {
@@ -14,13 +15,6 @@ setUpCanvas().then(async ({ ctx, canvas }) => {
 
   const { times, participants } = getCellImages(rows);
   const worker = await workerPromise;
-
-  for (const img of times) {
-    const { data } = await worker.recognize(img);
-    console.log(data.text);
-  }
-  for (const img of participants) {
-    const { data } = await worker.recognize(img);
-    console.log(data.text.split("\n").join(" "));
-  }
+  const tableData = await readCells(worker, participants, times);
+  console.log(tableData);
 });
