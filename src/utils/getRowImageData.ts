@@ -25,17 +25,3 @@ export default function getRowImageData(
 
   return images;
 }
-
-export function printRowImages(rows: ImageData[]) {
-  const main = document.querySelector("main");
-  rows.forEach((row) => {
-    const cv = document.createElement("canvas")!;
-    const ctx2 = cv.getContext("2d")!;
-
-    cv.width = row.width;
-    cv.height = row.height;
-
-    ctx2.putImageData(row, 0, 0);
-    main?.append(cv);
-  });
-}

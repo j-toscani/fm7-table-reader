@@ -1,16 +1,20 @@
 import "./style.css";
-import getRowImageData, { printRowImages } from "./utils/getRowImageData";
+import getCellImages from "./utils/getCellImages";
+
+import getRowImageData from "./utils/getRowImageData";
 import getTableDimensions from "./utils/getTableDimensions";
+import loadWorker from "./utils/loadWorker";
+import readCells from "./utils/readCells";
 import setUpCanvas from "./utils/setUpCanvas";
 
-setUpCanvas((ctx, canvas, image) => {
-  canvas.width = image.width;
-  canvas.height = image.height;
-  ctx.drawImage(image, 0, 0, image.width, image.height);
+setUpCanvas().then(async ({ ctx, canvas }) => {
+  const workerPromise = loadWorker();
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const dimensions = getTableDimensions(imageData);
-
-  ctx.putImageData(imageData, 0, 0);
   const rows = getRowImageData(ctx, dimensions);
-  printRowImages(rows);
+
+  const { times, participants } = getCellImages(rows);
+  const worker = await workerPromise;
+  const tableData = await readCells(worker, participants, times);
+  console.log(tableData);
 });
