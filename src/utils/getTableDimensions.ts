@@ -1,5 +1,4 @@
 import findTableLeftEnd from "./findTableLeftEnd";
-// import findTableRowsEnd from "./findTableRowEnd";
 import findTableRows from "./findTableRows";
 import findTableStartY from "./findTableStartY";
 import toGrayLevels from "./toGrayLevels";
