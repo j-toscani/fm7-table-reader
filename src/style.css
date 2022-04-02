@@ -7,7 +7,12 @@
 html {
   height: 100%;
   box-sizing: border-box;
+  font-family: sans-serif;
   font-size: clamp(12px, 2.5vw, 20px);
+}
+
+img {
+  height: auto;
 }
 
 body {
@@ -21,24 +26,117 @@ body {
 
 main {
   display: flex;
-  justify-content: center;
+  flex-flow: column;
   align-items: center;
   flex-wrap: wrap;
-  background-color: rgb(176, 176, 176);
-}
+  padding: 2rem 0;
 
+  max-width: 800px;
+  margin: 0 auto;
+}
+img, main, table {
+  width: 100%;
+}
 canvas {
   margin: 1rem auto;
 }
 
-canvas.main {
-  margin: 5vh 0;
-}
-
 header {
-  background: gray;
+  display: flex;
+  background: #1D4ED8;
 }
 
-footer {
-  background: lightgray;
+h1 {
+  color: white;
+  margin: auto;
+}
+
+td input {
+  width: 100%;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: border-color 0.2s ease-out;
+}
+
+input:hover {
+  border-color: #1D4ED8;
+}
+
+thead {
+  border-bottom: 1px solid black;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background: #1D4ED8;
+  border:none;
+  border-radius:  3px;
+  font-weight:700; 
+  color: white;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+th {
+  font-size: 0.75;
+  font-weight: 400;
+}
+
+td,
+th {
+  padding: 0.5rem 0.5rem;
+  border-right: 1px solid black;
+}
+
+td {
+  text-align: left;
+}
+
+td:nth-child(3) input,
+td:nth-child(4) input {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+tbody tr:nth-child(2n - 1) {
+background-color: #eee
+}
+
+th:last-of-type,
+td:last-of-type {
+  border: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.footer-wrapper {
+  display: flex;
+  padding: 1rem 0;
+  justify-content: center;
+}
+
+#loading {
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+}
+
+label {
+  display: inline-block;
+  cursor: pointer;
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  border: 2px dashed black;
+}
+
+.hide {
+  display: none;
 }

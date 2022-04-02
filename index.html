@@ -8,12 +8,47 @@
 </head>
 
 <body>
-  <header></header>
+  <header>
+    <h1>
+      Motorsportfreunde Tabellenleser.
+    </h1>
+  </header>
   <main>
-    <canvas class="main"></canvas>
-    <img src="" style="display:none" alt="">
+    <div id="input">
+      <label for="file-upload"> Hier klicken um die Datei hochzuladen! </label>
+      <input type="file" id="file-upload" class="hide">
+    </div>
+    <canvas class="hide"></canvas>
+    <img src="" data-display="" alt="">
+    <img src="" class="hide" alt="" data-canvas="">
+
+    <div id="loading" class="hide">
+      Daten werden verarbeitet...
+    </div>
+
+    <table class="hide">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Car</th>
+          <th>Lap Time</th>
+          <th>Race Time</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <div class="footer-wrapper">
+              <button> Datei herunterladen.</button>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </main>
-  <footer></footer>
   <script src="/src/index.ts" type="module" defer></script>
 </body>
 
