@@ -6,4 +6,4 @@ const button = document.querySelector("button")!;
 const fileInput = document.querySelector<HTMLInputElement>("input[type=file]")!;
 
 button.addEventListener("click", handleDownloadClick);
-fileInput.addEventListener("click", handleUpload);
+fileInput.addEventListener("change", handleUpload);

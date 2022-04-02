@@ -1,9 +1,7 @@
 import { createWorker, PSM, OEM } from "tesseract.js";
 
 export default async function loadWorker() {
-  const worker = createWorker({
-    logger: (m) => console.log(m),
-  });
+  const worker = createWorker();
   await worker.load();
   await worker.loadLanguage("eng");
   await worker.initialize("eng", OEM.LSTM_ONLY);
