@@ -11,6 +11,10 @@ html {
   font-size: clamp(12px, 2.5vw, 20px);
 }
 
+h1 {
+  text-align: center;
+}
+
 img {
   height: auto;
 }
